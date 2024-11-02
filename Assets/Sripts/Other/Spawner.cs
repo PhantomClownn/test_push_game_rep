@@ -12,6 +12,7 @@ public class Spawner : MonoBehaviour
 
     void Start(){
         check = true;
+        spawn_pos = gameObject.transform;
     }
 
     void Update(){
@@ -23,8 +24,13 @@ public class Spawner : MonoBehaviour
 
     IEnumerator timer(){
         yield return new WaitForSeconds(timer_spawn);
+        Vector3 temp_pos = new Vector3(spawn_pos.position.x, spawn_pos.position.y,0);
         for(int i = 0; i < count_enemy; i++){
-            Instantiate(Enemy_pref, spawn_pos.position, spawn_pos.rotation);
+            float rnd_pos = Random.Range(-2f, 2f);
+            temp_pos.x = temp_pos.x + rnd_pos;
+            rnd_pos = Random.Range(-2f, 2f);
+            temp_pos.y = temp_pos.y + rnd_pos;
+            Instantiate(Enemy_pref, temp_pos, spawn_pos.rotation);
         }
         check = true;
     }
